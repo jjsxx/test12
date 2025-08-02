@@ -1,8 +1,9 @@
 {
+  "id": "fpa"
   "name": "PASS",
   "short_name": "PASS",
-  "description": "",
-  "start_url": "https://fpa040310.netlify.app",
+  "description": "인증을 넘어 일상으로 PASS",
+  "start_url": "https://fpapp040310.netlify.app",
   "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
