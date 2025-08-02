@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
     <title>모바일 주민등록증 확인서비스</title>
 </head>
 <style>
@@ -77,4 +78,15 @@
 </div>
 
 </body>
+    <script>
+         if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+          console.log('Service Worker 등록 성공:', registration);
+        }).catch((error) => {
+          console.log('Service Worker 등록 실패:', error);
+        });
+      });
+    }
+    </script>
 </html>    
