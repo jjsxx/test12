@@ -1,6 +1,6 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('my-cache').then((cache) => {
+    caches.open('fpapp-cache-v1').then((cache) => {
       return cache.addAll([
         '/',
         '/index.html',
