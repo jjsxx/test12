@@ -9,7 +9,7 @@ self.addEventListener('install', (event) => {
         '/index.html',
         '/styles.css',
         '/scripts.js',
-        '/icons/icon-192x192.png',
+        '/icon-192x192.png',
         '/offline.html'  // 오프라인 페이지 추가
       ]);
     })
