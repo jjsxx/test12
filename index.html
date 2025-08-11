@@ -1,83 +1,161 @@
 <!DOCTYPE html>
 <html lang ="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="/manifest.json">
-    <title>모바일 주민등록증 확인서비스</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모바일 주민등록증 확인서비스</title>
+  <style>
+    .container {
+      position: relative;
+      width: 100%;
+      margin: auto;
+    }
+
+    .container img {
+      width: 100%;
+      display: block;
+    }
+
+    .rolling-text {
+      position: absolute;
+      top: 94%;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      background-color: #1E3A8A;
+      opacity: 0.7;
+      color: white;
+      font-size: 13.5px;
+      font-weight: bold;
+    }
+
+    .rolling-bg {
+      position: absolute;
+      top: 92.5%;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-color: #1E3A8A;
+      opacity: 0.9;
+    }
+
+    .marquee-wrapper {
+      display: flex;
+      width: max-content;
+      animation: marquee 3.5s linear infinite;
+    }
+
+    .marquee-text {
+      padding-left: 50px;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(-50%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+
+    /* 클릭 가능한 위치 박스 */
+    .click-area {
+      position: absolute;
+      top: 79%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 330px;
+      height: 50px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* 팝업 오버레이 */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    /* 팝업 박스 */
+    .popup-box {
+      position: relative;
+      background-color: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      width: 280px;
+      text-align: center;
+    }
+
+    /* X 닫기 버튼 */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #999;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+  </style>
 </head>
-<style>
-
-        .container {
-            position: relative;
-            width: 100%;
-            margin: auto;
-        }
-
-        .container img {
-            width: 100%;
-            display: block;
-        }
-
-        .rolling-text {
-            position: absolute;
-            top: 94%; 
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            background-color: #1E3A8A;        
-            opacity: 0.7;
-            color: white;
-            font-size: 13.5px;
-            font-weight: bold;
-        }
-
-         .rolling-bg {
-            position: absolute;
-            top: 92.5%;
-            left: 0;
-            width: 100%;
-            height: 40px; /* 기존보다 조금 더 높은 배경 */
-            background-color: #1E3A8A;
-            opacity: 0.9;
-
-        }
-
-        .marquee-wrapper {
-            display: flex;
-            width: max-content;
-            animation: marquee 3.5s linear infinite;
-        }
-
-        .marquee-text {
-            padding-left: 50px; /* 문구 간 간격 */
-        }
-
-        @keyframes marquee {
-            from {
-                transform: translateX(-50%);
-            }
-            to {
-                transform: translateX(0%);
-            }
-        }
-</style>
-
 <body>
 
 <div class="container">
-    <img src="42AA9790-B900-4201-972D-7CF2CCF5FDCF.jpeg" width="25">
-    <div class="rolling-bg"></div>
-    <div class="rolling-text">
-        <div class="marquee-wrapper">
-            <div class="marquee-text">캡처방지 시스템이 작동 중입니다.</div>
-            <div class="marquee-text">캡처방지 시스템이 작동 중입니다.</div>
-        </div>
+  <img src="IMG_5931.jpeg" alt="신분증 이미지">
+
+  <!-- 클릭 가능한 영역 (70% 위치) -->
+  <div class="click-area" onclick="openPopup()"></div>
+
+  <!-- 팝업 오버레이 -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-box">
+      <button class="close-btn" onclick="closePopup()">✕</button>
+      <p>김지수</p>
+      <p>주민등록번호: 040310-3167710</p>
+      <p>경기 성남시 중원구 성남대로 1150</p>
     </div>
+  </div>
+
+  <!-- 롤링 텍스트 및 배경 -->
+  <div class="rolling-bg"></div>
+  <div class="rolling-text">
+    <div class="marquee-wrapper">
+      <div class="marquee-text">캡처방지 시스템이 작동 중입니다.</div>
+      <div class="marquee-text">캡처방지 시스템이 작동 중입니다.</div>
+    </div>
+  </div>
 </div>
 
+<script>
+  function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+</script>
+
 </body>
-    <script>
-    </script>
-</html>    
+</html>
